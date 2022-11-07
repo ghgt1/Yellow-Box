@@ -38,42 +38,43 @@
         </div>
       </div>
     </header>
-    <main>
-      <section class="main-search">
-        <div class="site-phrase">
-          <img src="/images/favicon2.png" alt="노랑박스로고" width="100px" />
-          <span>YELLOW&nbsp</span>
-          <span>BOX</span>
+    <section class="main-search">
+      <div class="site-phrase">
+        <img src="/images/favicon2.png" alt="노랑박스로고" width="100px" />
+        <span>YELLOW&nbsp</span>
+        <span>BOX</span>
+      </div>
+      <h2>Explore any movies, TV shows, series or episodes.</h2>
+      <h4>Powered by OMDb api.</h4>
+      <div class="input-container">
+        <input
+          type="text"
+          name="title"
+          placeholder="Search Worldwide movies, series, or episodes."
+          class="input-search"
+        />
+        <button
+          type="submit"
+          class="btn-search"
+          onclick="location.href = '#/search'"
+        >
+          SEARCH
+        </button>
+        <div class="btn-container">
+          <input type="button" value="movie" name="type" class="btn-switch" />
+          <input type="button" value="series" name="type" class="btn-switch" />
+          <input type="button" value="episode" name="type" class="btn-switch" />
         </div>
-        <h2>Explore any movies, TV shows, series or episodes.</h2>
-        <h4>Powered by OMDb api.</h4>
-        <form action="#" method="get" target="_self" id="input-container">
-          <input
-            type="text"
-            id="input-search"
-            name="title"
-            placeholder="Search Worldwide movies, series, or episodes."
-          />
-          <button type="submit" class="btn-search">SEARCH</button>
-          <div class="btn-container">
-            <input type="button" value="movie" name="type" class="btn-switch" />
-            <input
-              type="button"
-              value="series"
-              name="type"
-              class="btn-switch"
-            />
-            <input
-              type="button"
-              value="episode"
-              name="type"
-              class="btn-switch"
-            />
-            <!-- <input type="hidden" name="type" id="hidden-val" /> -->
-          </div>
-        </form>
+      </div>
+    </section>
+    <div class="search-container">
+      <div class="movie-type" id="top"></div>
+      <div class="movie-count">&nbsp</div>
+      <section class="movie-container">
+        <div class="loader"></div>
+        <div class="movies"></div>
       </section>
-    </main>
+    </div>
     <footer>
       <span>YELLOW&nbsp</span>
       <span>BOX&nbsp</span>

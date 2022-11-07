@@ -1,5 +1,8 @@
 // main의 버튼다루기
 const btnEl = document.querySelectorAll(".btn-switch");
+const searchEl = document.querySelector(".main-search");
+const resEl = document.querySelector(".search-container");
+const titleEl = document.querySelector(".input-search");
 const btnMovie = btnEl[0];
 const btnSeries = btnEl[1];
 const btnEpisodes = btnEl[2];
@@ -30,19 +33,18 @@ btnEpisodes.addEventListener("click", function () {
 });
 
 (async () => {
-  let page = 1;
-  // 타입, 타이틀 불러오기
-  let movies = await searchMovies(page++, type);
-
-  renderMovies(movies);
+  window.addEventListener("hashchange", router);
+  router();
 })();
 
-async function searchMovies(page = 1, type = "movie") {
+async function searchMovies(page = 1, type = "movie", title = "") {
   const res = await fetch(
     `https://omdbapi.com/?apikey=7035c60c&s=${title}&page=${page}&type=${type}`
   );
   const json = await res.json();
   const { Search: movies } = json;
+  typeEl.innerHTML = "";
+  countEl.innerHTML = "";
   if (page === 1) {
     // 개수가 0개면 undefined가 아닌 0개가나오게함.
     const results = json["totalResults"] || 0;
@@ -61,10 +63,11 @@ async function searchMovies(page = 1, type = "movie") {
 
 function renderMovies(movies) {
   console.log(movies);
+  moviesEl.innerHTML = "";
   for (const movie of movies) {
     const el = document.createElement("a");
     el.classList.add("movie");
-    el.href = `detail.html?id=${movie.imdbID}`;
+    el.href = `#/detail/${movie.imdbID}`;
     const infoEl = document.createElement("div");
     infoEl.classList.add("info");
     const h1El = document.createElement("h1");
@@ -87,10 +90,26 @@ function renderMovies(movies) {
   }
 }
 
-function router() {
+async function router() {
   const routePath = location.hash;
-
+  let page = 1;
+  // 타입, 타이틀 불러오기
   // 초기화면 진입
   if (routePath === "") {
+    searchEl.classList.remove("hidden");
+    searchEl.classList.add("show");
+    resEl.classList.remove("show");
+    resEl.classList.add("hidden");
+    console.log("메인화면입니다");
+  } else if (routePath.includes("#/search")) {
+    let movies = await searchMovies(page++, searchCategory, titleEl.value);
+    searchEl.classList.remove("show");
+    searchEl.classList.add("hidden");
+    resEl.classList.remove("hidden");
+    resEl.classList.add("show");
+    renderMovies(movies);
+    console.log("검색창입니다");
+  } else if (routePath.includes("#/detail")) {
+    console.log("상세정보창입니다.");
   }
 }
