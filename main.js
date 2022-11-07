@@ -1,4 +1,4 @@
-// main의 버튼다루기
+// // main의 버튼다루기
 const btnEl = document.querySelectorAll(".btn-switch");
 const searchEl = document.querySelector(".main-search");
 const resEl = document.querySelector(".search-container");
@@ -47,7 +47,7 @@ btn2020s.addEventListener("click", function () {
   btn2000s.classList.remove("active");
   btn1990s.classList.remove("active");
   btn1980s.classList.remove("active");
-  searchDecades = "2020";
+  searchDecades = 2020;
 });
 btn2010s.addEventListener("click", function () {
   btn2020s.classList.remove("active");
@@ -55,7 +55,7 @@ btn2010s.addEventListener("click", function () {
   btn2000s.classList.remove("active");
   btn1990s.classList.remove("active");
   btn1980s.classList.remove("active");
-  searchDecades = "2010";
+  searchDecades = 2010;
 });
 btn2000s.addEventListener("click", function () {
   btn2020s.classList.remove("active");
@@ -63,7 +63,7 @@ btn2000s.addEventListener("click", function () {
   btn2000s.classList.add("active");
   btn1990s.classList.remove("active");
   btn1980s.classList.remove("active");
-  searchDecades = "2000";
+  searchDecades = 2000;
 });
 btn1990s.addEventListener("click", function () {
   btn2020s.classList.remove("active");
@@ -71,7 +71,7 @@ btn1990s.addEventListener("click", function () {
   btn2000s.classList.remove("active");
   btn1990s.classList.add("active");
   btn1980s.classList.remove("active");
-  searchDecades = "1990";
+  searchDecades = 1990;
 });
 btn1980s.addEventListener("click", function () {
   btn2020s.classList.remove("active");
@@ -79,24 +79,40 @@ btn1980s.addEventListener("click", function () {
   btn2000s.classList.remove("active");
   btn1990s.classList.remove("active");
   btn1980s.classList.add("active");
-  searchDecades = "1980";
+  searchDecades = 1980;
 });
 
+// 라우터를 담은 즉시실행함수.
 (async () => {
   window.addEventListener("hashchange", router);
   router();
 })();
 
 async function searchMovies(page = 1, type = "movie", title = "") {
-  console.log(page);
   const res = await fetch(
-    `https://omdbapi.com/?apikey=7035c60c&s=${title}&page=${page}&type=${type}`
+    `https://omdbapi.com/?apikey=7035c60c&s=${title}&page=${page}&type=${type}&y=${searchDecades}`
   );
   const json = await res.json();
-  const { Search: movies } = json;
+  let { Search: movies } = json;
+  if (searchDecades != "") {
+    for (let i = searchDecades + 1; i <= searchDecades + 10; i++) {
+      const res2 = await fetch(
+        `https://omdbapi.com/?apikey=7035c60c&s=${title}&page=${page}&type=${type}&y=${i}`
+      );
+      const json2 = await res2.json();
+      let { Search: movies2 } = json2;
+      if (!movies) movies = [];
+      if (!movies2) movies2 = [];
+      console.log(movies2);
+      movies = movies.concat(movies2);
+    }
+  }
+  console.log(movies);
   if (page === 1) {
     // 개수가 0개면 undefined가 아닌 0개가나오게함.
-    const results = json["totalResults"] || 0;
+    let results = json["totalResults"] || 0;
+    if (searchDecades) results = movies.length;
+    console.log(searchDecades);
     // 영화 종류정보와 개수정보 출력
     const countDiv = document.createElement("h2");
     const typeDiv = document.createElement("h1");
@@ -189,3 +205,9 @@ const observer = new IntersectionObserver(intersectionCallback, {
   threshold: 0.3,
 });
 observer.observe(bottom);
+
+function pressEnter(f) {
+  if (f.keyCode === 13) {
+    location.href = "#/search";
+  }
+}
