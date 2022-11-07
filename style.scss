@@ -50,8 +50,8 @@ header {
 }
 
 .main-search {
-  margin: 40px 96px;
-  padding: 92px 16px;
+  margin: 30px 96px;
+  padding: 82px 16px;
   text-align: center;
   display: block;
   h2 {
@@ -94,7 +94,8 @@ header {
         outline: 0;
       }
     }
-    .btn-container {
+    .btn-container-type,
+    .btn-container-years {
       margin-top: 30px;
       .btn-switch {
         padding: 0 16px;
