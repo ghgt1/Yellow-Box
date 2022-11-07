@@ -1,0 +1,30 @@
+{
+  "name": "kdt3-m2",
+  "version": "1.0.0",
+  "description": "주어진 API를 활용해 '[완성 예시](https://stupefied-hodgkin-d9d350.netlify.app/)' 처럼 자유롭게 영화 검색 기능을 구현해보세요!",
+  "scripts": {
+    "dev": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ghgt1/KDT3-M2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ghgt1/KDT3-M2/issues"
+  },
+  "homepage": "https://github.com/ghgt1/KDT3-M2#readme",
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.7.0",
+    "parcel": "^2.7.0",
+    "parcel-reporter-static-files-copy": "^1.4.0",
+    "parcel-resolver-ignore": "^2.1.3",
+    "sass": "^1.56.0"
+  },
+  "parcelIgnore": [
+    "/images/.*"
+  ]
+}
