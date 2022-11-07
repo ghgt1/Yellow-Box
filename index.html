@@ -4,7 +4,82 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>YellowBox</title>
+    <!-- reset css -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css"
+    />
+    <!-- favicon -->
+    <link rel="shortcut icon" href="/images/favicon2.png" />
+    <link rel="stylesheet" href="./style.scss" />
+    <script type="module" defer src="./main.js"></script>
   </head>
-  <body></body>
+  <body>
+    <header>
+      <div class="header-container">
+        <div class="left-container">
+          <a href="/">
+            <img src="/images/favicon2.png" alt="노랑박스로고" width="60px" />
+            <span>YELLOW&nbsp</span>
+            <span>BOX</span>
+          </a>
+          <h1>yellowbox.com</h1>
+        </div>
+        <div class="right-container">
+          <a href="https://github.com/ghgt1">
+            <img
+              src="/images/github.png"
+              alt="깃허브 로고"
+              width="30px"
+              height="30px"
+            />
+          </a>
+        </div>
+      </div>
+    </header>
+    <main>
+      <section class="main-search">
+        <div class="site-phrase">
+          <img src="/images/favicon2.png" alt="노랑박스로고" width="100px" />
+          <span>YELLOW&nbsp</span>
+          <span>BOX</span>
+        </div>
+        <h2>Explore any movies, TV shows, series or episodes.</h2>
+        <h4>Powered by OMDb api.</h4>
+        <form action="#" method="get" target="_self" id="input-container">
+          <input
+            type="text"
+            id="input-search"
+            name="title"
+            placeholder="Search Worldwide movies, series, or episodes."
+          />
+          <button type="submit" class="btn-search">SEARCH</button>
+          <div class="btn-container">
+            <input type="button" value="movie" name="type" class="btn-switch" />
+            <input
+              type="button"
+              value="series"
+              name="type"
+              class="btn-switch"
+            />
+            <input
+              type="button"
+              value="episode"
+              name="type"
+              class="btn-switch"
+            />
+            <input type="hidden" name="type" id="hidden-val" />
+          </div>
+        </form>
+      </section>
+    </main>
+    <footer>
+      <span>YELLOW&nbsp</span>
+      <span>BOX&nbsp</span>
+      <div class="copyright-container">
+        <h3>© 2022 JYROH, All rights reserved.</h3>
+      </div>
+    </footer>
+  </body>
 </html>
