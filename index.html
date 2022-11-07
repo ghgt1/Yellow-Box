@@ -52,6 +52,7 @@
           name="title"
           placeholder="Search Worldwide movies, series, or episodes."
           class="input-search"
+          onkeypress="if(window.event.keyCode===13){location.href = '#/search'}"
         />
         <button
           type="submit"
