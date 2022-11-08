@@ -1,4 +1,3 @@
-// // main의 버튼다루기
 const btnEl = document.querySelectorAll(".btn-switch");
 const searchEl = document.querySelector(".main-search");
 const resEl = document.querySelector(".search-container");
@@ -15,11 +14,11 @@ let searchDecades = "";
 let page = 1;
 let titleInput = titleEl.value;
 
+// main의 버튼다루기
 typeBtns.forEach((x, i) => {
   x.addEventListener("click", function () {
-    const tmp = typeBtns.filter((y) => {
-      y !== x;
-    });
+    const tmp = typeBtns.filter((y) => y !== x);
+    console.log(tmp);
     tmp.forEach((y) => {
       y.classList.remove("active");
     });
@@ -38,9 +37,8 @@ decadeBtns.forEach((x, i) => {
       x.classList.add("active");
       searchDecades = decadeYears[i];
     }
-    const tmp = decadeBtns.filter((y) => {
-      y !== x;
-    });
+    const tmp = decadeBtns.filter((y) => y !== x);
+    console.log(tmp);
     tmp.forEach((y) => {
       y.classList.remove("active");
     });
@@ -111,6 +109,7 @@ function renderMovies(movies) {
     // 대체 이미지 구현.
     imgEl.onerror = function () {
       this.src = "/images/image-not-found.png";
+      this.alt = "이미지존재하지않음";
     };
     imgEl.width = 230;
     imgEl.height = 345;
