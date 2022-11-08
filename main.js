@@ -3,14 +3,10 @@ const btnEl = document.querySelectorAll(".btn-switch");
 const searchEl = document.querySelector(".main-search");
 const resEl = document.querySelector(".search-container");
 const titleEl = document.querySelector(".input-search");
-const btnMovie = btnEl[0];
-const btnSeries = btnEl[1];
-const btnEpisodes = btnEl[2];
-const btn2020s = btnEl[3];
-const btn2010s = btnEl[4];
-const btn2000s = btnEl[5];
-const btn1990s = btnEl[6];
-const btn1980s = btnEl[7];
+const typeBtns = [btnEl[0], btnEl[1], btnEl[2]];
+const videoTypes = ["movie", "series", "episode"];
+const decadeBtns = [btnEl[3], btnEl[4], btnEl[5], btnEl[6], btnEl[7]];
+const decadeYears = [2020, 2010, 2000, 1990, 1980];
 let moviesEl = document.querySelector(".movies");
 let typeEl = document.querySelector(".movie-type");
 let countEl = document.querySelector(".movie-count");
@@ -19,67 +15,36 @@ let searchDecades = "";
 let page = 1;
 let titleInput = titleEl.value;
 
-btnMovie.addEventListener("click", function () {
-  btnMovie.classList.add("active");
-  btnSeries.classList.remove("active");
-  btnEpisodes.classList.remove("active");
-  searchCategory = "movie";
-  typeEl.value = searchCategory;
-});
-btnSeries.addEventListener("click", function () {
-  btnMovie.classList.remove("active");
-  btnSeries.classList.add("active");
-  btnEpisodes.classList.remove("active");
-  searchCategory = "series";
-  typeEl.value = searchCategory;
-});
-btnEpisodes.addEventListener("click", function () {
-  btnMovie.classList.remove("active");
-  btnSeries.classList.remove("active");
-  btnEpisodes.classList.add("active");
-  searchCategory = "episode";
-  typeEl.value = searchCategory;
+typeBtns.forEach((x, i) => {
+  x.addEventListener("click", function () {
+    const tmp = typeBtns.filter((y) => {
+      y !== x;
+    });
+    tmp.forEach((y) => {
+      y.classList.remove("active");
+    });
+    x.classList.add("active");
+    searchCategory = videoTypes[i];
+    typeEl.value = searchCategory;
+  });
 });
 
-btn2020s.addEventListener("click", function () {
-  btn2020s.classList.add("active");
-  btn2010s.classList.remove("active");
-  btn2000s.classList.remove("active");
-  btn1990s.classList.remove("active");
-  btn1980s.classList.remove("active");
-  searchDecades = 2020;
-});
-btn2010s.addEventListener("click", function () {
-  btn2020s.classList.remove("active");
-  btn2010s.classList.add("active");
-  btn2000s.classList.remove("active");
-  btn1990s.classList.remove("active");
-  btn1980s.classList.remove("active");
-  searchDecades = 2010;
-});
-btn2000s.addEventListener("click", function () {
-  btn2020s.classList.remove("active");
-  btn2010s.classList.remove("active");
-  btn2000s.classList.add("active");
-  btn1990s.classList.remove("active");
-  btn1980s.classList.remove("active");
-  searchDecades = 2000;
-});
-btn1990s.addEventListener("click", function () {
-  btn2020s.classList.remove("active");
-  btn2010s.classList.remove("active");
-  btn2000s.classList.remove("active");
-  btn1990s.classList.add("active");
-  btn1980s.classList.remove("active");
-  searchDecades = 1990;
-});
-btn1980s.addEventListener("click", function () {
-  btn2020s.classList.remove("active");
-  btn2010s.classList.remove("active");
-  btn2000s.classList.remove("active");
-  btn1990s.classList.remove("active");
-  btn1980s.classList.add("active");
-  searchDecades = 1980;
+decadeBtns.forEach((x, i) => {
+  x.addEventListener("click", function () {
+    if (searchDecades === decadeYears[i]) {
+      x.classList.remove("active");
+      searchDecades = "";
+    } else {
+      x.classList.add("active");
+      searchDecades = decadeYears[i];
+    }
+    const tmp = decadeBtns.filter((y) => {
+      y !== x;
+    });
+    tmp.forEach((y) => {
+      y.classList.remove("active");
+    });
+  });
 });
 
 // 라우터를 담은 즉시실행함수.
@@ -179,6 +144,8 @@ async function router() {
   } else if (routePath.includes("#/detail")) {
     typeEl.innerHTML = "";
     countEl.innerHTML = "";
+    resEl.classList.remove("show");
+    resEl.classList.add("hidden");
     console.log("상세정보창입니다.");
   }
 }
