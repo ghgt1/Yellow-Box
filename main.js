@@ -127,6 +127,7 @@ function renderMovies(movies) {
 
 async function router() {
   const routePath = location.hash;
+  console.log("라우터새로고침");
   // 타입, 타이틀 불러오기
   // 초기화면 진입
   if (routePath === "") {
@@ -148,8 +149,13 @@ async function router() {
     page++;
     console.log(movies);
     moviesEl.innerHTML = "";
-    renderMovies(movies);
-    loadEl.classList.add("loader-hidden");
+    if (!movies) {
+      loadEl.classList.add("loader-hidden");
+      moviesEl.textContent = "OOPS! NO CONTENT AVAILABLE";
+    } else {
+      renderMovies(movies);
+      loadEl.classList.add("loader-hidden");
+    }
   } else if (routePath.includes("#/detail")) {
     typeEl.innerHTML = "";
     countEl.innerHTML = "";
@@ -183,9 +189,3 @@ const observer = new IntersectionObserver(intersectionCallback, {
   threshold: 0.3,
 });
 observer.observe(bottom);
-
-function pressEnter(f) {
-  if (f.keyCode === 13) {
-    location.href = "#/search";
-  }
-}
