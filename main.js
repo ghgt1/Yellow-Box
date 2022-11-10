@@ -1,6 +1,7 @@
 const btnEl = document.querySelectorAll(".btn-switch");
 const searchEl = document.querySelector(".main-search");
 const resEl = document.querySelector(".search-container");
+const loadEl = document.querySelector(".loader");
 const titleEl = document.querySelector(".input-search");
 const typeBtns = [btnEl[0], btnEl[1], btnEl[2]];
 const videoTypes = ["movie", "series", "episode"];
@@ -13,7 +14,6 @@ let searchCategory = "movie";
 let searchDecades = "";
 let page = 1;
 let titleInput = titleEl.value;
-
 // main의 버튼다루기
 typeBtns.forEach((x, i) => {
   x.addEventListener("click", function () {
@@ -48,7 +48,6 @@ decadeBtns.forEach((x, i) => {
 // 라우터를 담은 즉시실행함수.
 (async () => {
   window.addEventListener("hashchange", router);
-  router();
 })();
 
 async function searchMovies(page = 1, type = "movie", title = "") {
@@ -57,20 +56,26 @@ async function searchMovies(page = 1, type = "movie", title = "") {
   );
   const json = await res.json();
   let { Search: movies } = json;
+  // 여기 코드 수정하자. await을 for문안에 넣으면 망하는지름길인듯.
   if (searchDecades != "") {
+    let promises = [];
     for (let i = searchDecades + 1; i <= searchDecades + 10; i++) {
-      const res2 = await fetch(
+      const res2 = fetch(
         `https://omdbapi.com/?apikey=7035c60c&s=${title}&page=${page}&type=${type}&y=${i}`
       );
-      const json2 = await res2.json();
+      promises.push(res2);
+    }
+    // promise all로 한번에 받아온다. for문에서 하나하나 await하면 비동기 의미가없음.
+    let promiseMovies = await Promise.all(promises);
+    console.log(promiseMovies);
+    for (let i = 0; i < 10; i++) {
+      const json2 = await promiseMovies[i].json();
       let { Search: movies2 } = json2;
       if (!movies) movies = [];
       if (!movies2) movies2 = [];
-      console.log(movies2);
       movies = movies.concat(movies2);
     }
   }
-  console.log(movies);
   if (page === 1) {
     // 개수가 0개면 undefined가 아닌 0개가나오게함.
     let results = json["totalResults"] || 0;
@@ -106,6 +111,7 @@ function renderMovies(movies) {
     infoEl.append(h1El, h2El);
     const imgEl = document.createElement("img");
     imgEl.src = movie.Poster;
+    imgEl.alt = movie.Title;
     // 대체 이미지 구현.
     imgEl.onerror = function () {
       this.src = "/images/image-not-found.png";
@@ -116,6 +122,7 @@ function renderMovies(movies) {
     el.append(imgEl, infoEl);
     moviesEl.append(el);
   }
+  console.log("렌더링끝");
 }
 
 async function router() {
@@ -131,15 +138,18 @@ async function router() {
     resEl.classList.add("hidden");
     console.log("메인화면입니다");
   } else if (routePath.includes("#/search")) {
-    let movies = await searchMovies((page = 1), searchCategory, titleEl.value);
-    page++;
-    moviesEl.innerHTML = "";
+    loadEl.classList.remove("loader-hidden");
     searchEl.classList.remove("show");
     searchEl.classList.add("hidden");
     resEl.classList.remove("hidden");
     resEl.classList.add("show");
-    renderMovies(movies);
     console.log("검색창입니다");
+    let movies = await searchMovies((page = 1), searchCategory, titleEl.value);
+    page++;
+    console.log(movies);
+    moviesEl.innerHTML = "";
+    renderMovies(movies);
+    loadEl.classList.add("loader-hidden");
   } else if (routePath.includes("#/detail")) {
     typeEl.innerHTML = "";
     countEl.innerHTML = "";
@@ -151,9 +161,11 @@ async function router() {
 
 // 무한 스크롤 구현
 async function loadMoreMovies() {
+  loadEl.classList.remove("loader-hidden");
   movies = await searchMovies(page++, searchCategory, titleEl.value);
   console.log("무한스크롤작동");
   renderMovies(movies);
+  loadEl.classList.add("loader-hidden");
 }
 
 const bottom = document.querySelector(".bottom");
