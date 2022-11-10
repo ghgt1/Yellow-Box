@@ -7,9 +7,12 @@ const typeBtns = [btnEl[0], btnEl[1], btnEl[2]];
 const videoTypes = ["movie", "series", "episode"];
 const decadeBtns = [btnEl[3], btnEl[4], btnEl[5], btnEl[6], btnEl[7]];
 const decadeYears = [2020, 2010, 2000, 1990, 1980];
+const critics = ["imdb", "rotten", "metaCritic"];
+const ciritcsPoints = ["imdbRating", ""];
 let moviesEl = document.querySelector(".movies");
 let typeEl = document.querySelector(".movie-type");
 let countEl = document.querySelector(".movie-count");
+let detailsEl = document.querySelector(".movie-details");
 let searchCategory = "movie";
 let searchDecades = "";
 let page = 1;
@@ -55,6 +58,7 @@ async function searchMovies(page = 1, type = "movie", title = "") {
     `https://omdbapi.com/?apikey=7035c60c&s=${title}&page=${page}&type=${type}&y=${searchDecades}`
   );
   const json = await res.json();
+  console.log(json);
   let { Search: movies } = json;
   // 여기 코드 수정하자. await을 for문안에 넣으면 망하는지름길인듯.
   if (searchDecades != "") {
@@ -94,6 +98,15 @@ async function searchMovies(page = 1, type = "movie", title = "") {
   return movies;
 }
 
+async function detailSearch(id) {
+  const res = await fetch(
+    `https://omdbapi.com/?apikey=7035c60c&i=${id}&plot=full`
+  );
+  const json = await res.json();
+  console.log(json);
+  return json;
+}
+
 function renderMovies(movies) {
   console.log(movies);
   for (const movie of movies) {
@@ -125,6 +138,72 @@ function renderMovies(movies) {
   console.log("렌더링끝");
 }
 
+function renderDetails(details) {
+  const imgEl = document.createElement("img");
+  // 업스케일링.
+  imgEl.src = details.Poster.replace("SX300", "SX700");
+  imgEl.alt = details.Title;
+  imgEl.width = 400;
+  imgEl.height = 600;
+  detailsEl.append(imgEl);
+  const detailSpecs = document.createElement("div");
+  const title = document.createElement("h1");
+  title.textContent = details.Title;
+  const infos = document.createElement("span");
+  infos.textContent = `${details.Released} · ${details.Runtime} · ${details.Country}`;
+  const plots = document.createElement("h2");
+  plots.textContent = details.Plot;
+  const ratings = document.createElement("div");
+  ratings.textContent = "Ratings";
+  const ratingWrap = document.createElement("div");
+  critics.forEach((x, i) => {
+    const critic = document.createElement("div");
+    const logos = document.createElement("img");
+    logos.src = `images/${x}.png`;
+    logos.alt = x;
+    logos.height = 30;
+    const points = document.createElement("span");
+    // 없는경우 처리필요. 점수들.
+    points.textContent = details.Ratings[i].Value;
+    critic.append(logos, points);
+    ratingWrap.append(critic);
+  });
+  ratingWrap.classList.add("rate-wrap");
+  const actors = document.createElement("div");
+  actors.textContent = "Actors";
+  const actorsWrap = document.createElement("p");
+  actorsWrap.textContent = details.Actors;
+  actors.append(actorsWrap);
+  const director = document.createElement("div");
+  director.textContent = "Director";
+  const directorWrap = document.createElement("p");
+  directorWrap.textContent = details.Director;
+  director.append(directorWrap);
+  const production = document.createElement("div");
+  production.textContent = "Production";
+  const productionWrap = document.createElement("p");
+  productionWrap.textContent = details.Production;
+  production.append(productionWrap);
+  const genre = document.createElement("div");
+  genre.textContent = "Genre";
+  const genreWrap = document.createElement("p");
+  genreWrap.textContent = details.Genre;
+  genre.append(genreWrap);
+  detailSpecs.append(
+    title,
+    infos,
+    plots,
+    ratings,
+    ratingWrap,
+    actors,
+    director,
+    production,
+    genre
+  );
+  detailsEl.append(detailSpecs);
+  detailSpecs.classList.add("movie-specs");
+}
+
 async function router() {
   const routePath = location.hash;
   console.log("라우터새로고침");
@@ -149,6 +228,7 @@ async function router() {
     page++;
     console.log(movies);
     moviesEl.innerHTML = "";
+    detailsEl.innerHTML = "";
     if (!movies) {
       loadEl.classList.add("loader-hidden");
       moviesEl.textContent = "OOPS! NO CONTENT AVAILABLE";
@@ -157,10 +237,20 @@ async function router() {
       loadEl.classList.add("loader-hidden");
     }
   } else if (routePath.includes("#/detail")) {
-    typeEl.innerHTML = "";
-    countEl.innerHTML = "";
+    loadEl.classList.remove("loader-hidden");
     resEl.classList.remove("show");
     resEl.classList.add("hidden");
+    let id = routePath.substring(routePath.indexOf("tt"));
+    let details = await detailSearch(id);
+    typeEl.innerHTML = "";
+    countEl.innerHTML = "";
+    detailsEl.innerHTML = "";
+    try {
+      renderDetails(details);
+    } catch (error) {
+      loadEl.classList.add("loader-hidden");
+    }
+    loadEl.classList.add("loader-hidden");
     console.log("상세정보창입니다.");
   }
 }
