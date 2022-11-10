@@ -1,6 +1,7 @@
 import { searchDecades, typeEl } from "./btn.js";
 export let moviesEl = document.querySelector(".movies");
 export let countEl = document.querySelector(".movie-count");
+// export let movies = "";
 //영화 검색
 export async function searchMovies(page = 1, type = "movie", title = "") {
   const res = await fetch(

@@ -3,6 +3,7 @@ import { detailsEl } from "./details.js";
 import { searchMovies, renderMovies } from "./search.js";
 import { moviesEl, typeEl, countEl } from "./search.js";
 import { btnEvents, searchDecades, typeEl } from "./btn.js";
+// import { movies } from "./search.js";
 const searchEl = document.querySelector(".main-search");
 const resEl = document.querySelector(".search-container");
 const loadEl = document.querySelector(".loader");
@@ -43,7 +44,7 @@ async function router() {
     console.log(movies);
     moviesEl.innerHTML = "";
     detailsEl.innerHTML = "";
-    if (!movies) {
+    if (!movies || movies.length === 0) {
       loadEl.classList.add("loader-hidden");
       moviesEl.textContent = "OOPS! NO CONTENT AVAILABLE";
     } else {
@@ -68,7 +69,8 @@ async function router() {
 // 무한 스크롤 구현
 async function loadMoreMovies() {
   loadEl.classList.remove("loader-hidden");
-  movies = await searchMovies(page++, searchCategory, titleEl.value);
+  let movies = await searchMovies(page++, searchCategory, titleEl.value);
+  console.log(movies);
   console.log("무한스크롤작동");
   console.log(page, titleEl.value);
   if (!movies) {
