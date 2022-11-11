@@ -38,6 +38,7 @@ export function renderDetails(details) {
     logos.src = `images/${x}.png`;
     logos.alt = x;
     logos.height = 30;
+    critic.append(logos);
     const points = document.createElement("span");
     // 없는경우 처리필요. 점수들.
     try {

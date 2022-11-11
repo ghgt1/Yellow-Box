@@ -1,9 +1,12 @@
-import { detailSearch, renderDetails } from "./details.js";
-import { detailsEl } from "./details.js";
-import { searchMovies, renderMovies } from "./search.js";
-import { moviesEl, typeEl, countEl } from "./search.js";
+import { detailSearch, renderDetails, detailsEl } from "./details.js";
+import {
+  searchMovies,
+  renderMovies,
+  moviesEl,
+  typeEl,
+  countEl,
+} from "./search.js";
 import { btnEvents, searchDecades, typeEl } from "./btn.js";
-// import { movies } from "./search.js";
 const searchEl = document.querySelector(".main-search");
 const resEl = document.querySelector(".search-container");
 const loadEl = document.querySelector(".loader");
@@ -12,7 +15,9 @@ let searchCategory = "movie";
 let page = 1;
 let titleInput = titleEl.value;
 
+// 버튼활성화
 btnEvents();
+
 // 라우터를 담은 즉시실행함수.
 (async () => {
   window.addEventListener("hashchange", router);
@@ -33,6 +38,7 @@ async function router() {
     resEl.classList.add("hidden");
     console.log("메인화면입니다");
   } else if (routePath.includes("#/search")) {
+    // 검색화면 진입
     loadEl.classList.remove("loader-hidden");
     searchEl.classList.remove("show");
     searchEl.classList.add("hidden");
@@ -44,6 +50,7 @@ async function router() {
     console.log(movies);
     moviesEl.innerHTML = "";
     detailsEl.innerHTML = "";
+    // 검색어가없으면.
     if (!movies || movies.length === 0) {
       loadEl.classList.add("loader-hidden");
       moviesEl.textContent = "OOPS! NO CONTENT AVAILABLE";
@@ -52,6 +59,7 @@ async function router() {
       loadEl.classList.add("loader-hidden");
     }
   } else if (routePath.includes("#/detail")) {
+    // 상세정보페이지 진입
     loadEl.classList.remove("loader-hidden");
     resEl.classList.remove("show");
     resEl.classList.add("hidden");
@@ -78,7 +86,6 @@ async function loadMoreMovies() {
     location.hash = "/";
     typeEl.innerHTML = "";
     countEl.innerHTML = "";
-    moviesEl.textContent = "OOPS! NO CONTENT AVAILABLE";
   } else {
     renderMovies(movies);
     loadEl.classList.add("loader-hidden");
