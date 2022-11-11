@@ -45,8 +45,8 @@ export async function searchMovies(page = 1, type = "movie", title = "") {
     typeEl.append(typeDiv);
     countEl.append(countDiv);
   } else {
-    typeEl = "";
-    countEl = "";
+    typeEl.innerHTML = "";
+    countEl.innerHTML = "";
   }
   return movies;
 }
