@@ -80,6 +80,7 @@ async function loadMoreMovies() {
   let movies = await searchMovies(page++, searchCategory, titleEl.value);
   console.log(movies);
   console.log("무한스크롤작동");
+  alert("무한스크롤작동");
   console.log(page, titleEl.value);
   if (!movies) {
     loadEl.classList.add("loader-hidden");
