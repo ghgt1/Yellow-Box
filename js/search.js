@@ -42,11 +42,8 @@ export async function searchMovies(page = 1, type = "movie", title = "") {
     type == "series"
       ? (typeDiv.textContent = `${type.toUpperCase()}`)
       : (typeDiv.textContent = `${type.toUpperCase()}S`);
-    typeEl.append(typeDiv);
-    countEl.append(countDiv);
-  } else {
-    typeEl.innerHTML = "";
-    countEl.innerHTML = "";
+    if (!typeEl.innerHTML) typeEl.append(typeDiv);
+    if (countEl.innerHTML === "&nbsp;") countEl.append(countDiv);
   }
   return movies;
 }
