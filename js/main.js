@@ -80,13 +80,14 @@ async function loadMoreMovies() {
   let movies = await searchMovies(page++, searchCategory, titleEl.value);
   console.log(movies);
   console.log("무한스크롤작동");
-  alert("무한스크롤작동");
+  // alert("무한스크롤작동");
+  console.log(movies);
   console.log(page, titleEl.value);
   if (!movies) {
     loadEl.classList.add("loader-hidden");
     location.hash = "/";
-    typeEl.innerHTML = "";
-    countEl.innerHTML = "";
+    // typeEl.innerHTML = "";
+    // countEl.innerHTML = "";
   } else {
     renderMovies(movies);
     loadEl.classList.add("loader-hidden");
