@@ -84,6 +84,7 @@ header {
     .input-search {
       padding: 5px;
       width: 500px;
+      // width: 100%;
       font-size: 13px;
       height: 36px;
       border: 1px solid #ced4da;
@@ -101,6 +102,7 @@ header {
     .btn-container-type,
     .btn-container-years {
       margin-top: 30px;
+      // width: 500px;
       .btn-switch {
         padding: 0 16px;
         width: auto;
@@ -201,6 +203,7 @@ header {
   & > img {
     margin-top: 20px;
     margin-right: 70px;
+    border-radius: 5px;
   }
   .movie-specs {
     h1 {
@@ -281,6 +284,7 @@ footer {
     color: #fdc000;
     animation: progress-circular-rotate 1.4s linear infinite;
     circle {
+      stroke-width: 5px;
       animation: progress-circular-dash 1.4s ease-in-out infinite;
       fill: transparent;
       stroke-linecap: round;
@@ -313,4 +317,74 @@ footer {
   opacity: 0;
   visibility: hidden;
   display: none;
+}
+
+// phones
+@media (max-width: 575.98px) {
+  .header-container {
+    margin: 0 auto !important;
+    text-align: center;
+    .left-container {
+      h1 {
+        display: none;
+      }
+    }
+    .right-container {
+      display: none !important;
+    }
+  }
+  .main-search {
+    margin: 7.5px 24px 5px;
+    padding: 20px 4px 14px;
+    .input-container {
+      .input-search {
+        width: 100%;
+      }
+      .btn-search {
+        margin-top: 10px;
+      }
+      .btn-container-type {
+        .btn-switch {
+          font-size: 14px;
+        }
+      }
+      .btn-container-years {
+        .btn-switch {
+          width: 40px;
+          font-size: 10px;
+          padding: 0;
+        }
+      }
+    }
+  }
+}
+
+//landscape phoens
+@media (max-width: 767.98px) {
+  .main-search {
+    .input-container {
+      .input-search {
+        width: 100%;
+      }
+      .btn-search {
+        margin-top: 10px;
+      }
+      .btn-container-years {
+        .btn-switch {
+          width: 45px;
+          font-size: 12px;
+          padding: 0 8px;
+        }
+      }
+    }
+  }
+}
+@media (max-width: 991.98px) {
+  .main-search {
+    .input-container {
+      .btn-search {
+        margin-top: 10px;
+      }
+    }
+  }
 }
