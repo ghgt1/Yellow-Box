@@ -44,6 +44,9 @@ export async function searchMovies(page = 1, type = "movie", title = "") {
       : (typeDiv.textContent = `${type.toUpperCase()}S`);
     typeEl.append(typeDiv);
     countEl.append(countDiv);
+  } else {
+    typeEl = "";
+    countEl = "";
   }
   return movies;
 }
