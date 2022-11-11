@@ -36,6 +36,8 @@ async function router() {
     searchEl.classList.add("show");
     resEl.classList.remove("show");
     resEl.classList.add("hidden");
+    detailsEl.classList.add("hidden");
+    detailsEl.classList.remove("details-show");
     console.log("메인화면입니다");
   } else if (routePath.includes("#/search")) {
     // 검색화면 진입
@@ -44,6 +46,8 @@ async function router() {
     searchEl.classList.add("hidden");
     resEl.classList.remove("hidden");
     resEl.classList.add("show");
+    detailsEl.classList.add("hidden");
+    detailsEl.classList.remove("details-show");
     console.log("검색창입니다");
     let movies = await searchMovies((page = 1), searchCategory, titleEl.value);
     page++;
@@ -60,6 +64,8 @@ async function router() {
     }
   } else if (routePath.includes("#/detail")) {
     // 상세정보페이지 진입
+    detailsEl.classList.remove("hidden");
+    detailsEl.classList.add("details-show");
     loadEl.classList.remove("loader-hidden");
     resEl.classList.remove("show");
     resEl.classList.add("hidden");
