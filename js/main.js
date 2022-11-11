@@ -86,8 +86,8 @@ async function loadMoreMovies() {
   if (!movies) {
     loadEl.classList.add("loader-hidden");
     location.hash = "/";
-    // typeEl.innerHTML = "";
-    // countEl.innerHTML = "";
+    typeEl.innerHTML = "";
+    countEl.innerHTML = "";
   } else {
     renderMovies(movies);
     loadEl.classList.add("loader-hidden");
@@ -106,6 +106,6 @@ const intersectionCallback = (entries) => {
 };
 
 const observer = new IntersectionObserver(intersectionCallback, {
-  threshold: 0.3,
+  threshold: 1,
 });
 observer.observe(bottom);
