@@ -13,7 +13,8 @@ export async function detailSearch(id) {
 export function renderDetails(details) {
   const imgEl = document.createElement("img");
   // 업스케일링.
-  imgEl.src = details.Poster.replace("SX300", "SX700");
+  console.log(details.Poster);
+  imgEl.src = details.Poster.replace("SX300", "SX1200");
   imgEl.alt = details.Title;
   imgEl.onerror = function () {
     this.src = "/images/image-not-found.png";
