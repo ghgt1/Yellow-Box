@@ -21,17 +21,10 @@ export async function searchMovies(page = 1, type = "movie", title = "") {
     }
     // promise all로 한번에 받아온다. for문에서 하나하나 await하면 비동기 의미가없음.
     let promiseMovies = await Promise.all(promises);
-    console.log(promiseMovies);
-    let b = [];
-    for (let i = 0; i < 10; i++) {
-      b = b.concat(promiseMovies[i]);
-    }
-    console.log(b);
     promises = [];
-    for (let i = 0; i < 10; i++) {
-      const json2 = promiseMovies[i].json();
-      promises.push(json2);
-    }
+    promiseMovies.forEach((x) => {
+      promises.push(x.json());
+    });
     promiseMovies = await Promise.all(promises);
     console.log(promiseMovies);
     for (let i = 0; i < 10; i++) {
