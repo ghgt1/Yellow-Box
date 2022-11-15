@@ -102,6 +102,7 @@ async function loadMoreMovies() {
 
 const bottom = document.querySelector(".bottom");
 
+// insetesection observer로 무한스크롤 구현
 const intersectionCallback = (entries) => {
   const routePath = location.hash;
   entries.forEach((entry) => {
