@@ -6,12 +6,11 @@ import {
   typeEl,
   countEl,
 } from "./search.js";
-import { btnEvents, searchDecades, typeEl } from "./btn.js";
+import { btnEvents, searchDecades, typeEl, searchCategory } from "./btn.js";
 const searchEl = document.querySelector(".main-search");
 const resEl = document.querySelector(".search-container");
 const loadEl = document.querySelector(".loader");
 const titleEl = document.querySelector(".input-search");
-let searchCategory = "movie";
 let page = 1;
 let titleInput = titleEl.value;
 

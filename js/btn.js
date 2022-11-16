@@ -3,7 +3,7 @@ const typeBtns = [btnEl[0], btnEl[1], btnEl[2]];
 const videoTypes = ["movie", "series", "episode"];
 const decadeBtns = [btnEl[3], btnEl[4], btnEl[5], btnEl[6], btnEl[7]];
 const decadeYears = [2020, 2010, 2000, 1990, 1980];
-let searchCategory = "movie";
+export let searchCategory = "movie";
 export let searchDecades = "";
 export let typeEl = document.querySelector(".movie-type");
 // main의 버튼다루기
