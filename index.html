@@ -57,27 +57,76 @@
           name="title"
           placeholder="Search Worldwide movies, series, or episodes."
           class="input-search"
-          onkeyup="if(window.event.keyCode===13){location.href = '#/search'}"
         />
-        <button
-          type="submit"
-          class="btn-search"
-          onclick="location.href = '#/search'"
-        >
-          SEARCH
-        </button>
+        <button type="submit" class="btn-search">SEARCH</button>
         <!-- 버튼들 -->
         <div class="btn-container-type">
-          <input type="button" value="movie" name="type" class="btn-switch" />
-          <input type="button" value="series" name="type" class="btn-switch" />
-          <input type="button" value="episode" name="type" class="btn-switch" />
+          <input
+            type="radio"
+            value="movie"
+            name="type"
+            class="btn-switch"
+            id="movie-type"
+          />
+          <label for="movie-type">movie</label>
+          <input
+            type="radio"
+            value="series"
+            name="type"
+            class="btn-switch"
+            id="series-type"
+          />
+          <label for="series-type">series</label>
+          <input
+            type="radio"
+            value="episode"
+            name="type"
+            class="btn-switch"
+            id="episode-type"
+          />
+          <label for="episode-type">episode</label>
         </div>
         <div class="btn-container-years">
-          <input type="button" value="2020s" name="years" class="btn-switch" />
-          <input type="button" value="2010s" name="years" class="btn-switch" />
-          <input type="button" value="2000s" name="years" class="btn-switch" />
-          <input type="button" value="1990s" name="years" class="btn-switch" />
-          <input type="button" value="1980s" name="years" class="btn-switch" />
+          <input
+            type="radio"
+            value="2020"
+            name="years"
+            class="btn-switch-decades"
+            id="2020s-btn"
+          />
+          <label for="2020s-btn">2020s</label>
+          <input
+            type="radio"
+            value="2010"
+            name="years"
+            class="btn-switch-decades"
+            id="2010s-btn"
+          />
+          <label for="2010s-btn">2010s</label>
+          <input
+            type="radio"
+            value="2000"
+            name="years"
+            class="btn-switch-decades"
+            id="2000s-btn"
+          />
+          <label for="2000s-btn">2000s</label>
+          <input
+            type="radio"
+            value="1990"
+            name="years"
+            class="btn-switch-decades"
+            id="1990s-btn"
+          />
+          <label for="1990s-btn">1990s</label>
+          <input
+            type="radio"
+            value="1980"
+            name="years"
+            class="btn-switch-decades"
+            id="1980s-btn"
+          />
+          <label for="1980s-btn">1980s</label>
         </div>
       </div>
     </section>
