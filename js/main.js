@@ -1,26 +1,16 @@
 import { detailSearch, renderDetails, detailsEl } from "./details.js";
-import {
-  searchMovies,
-  renderMovies,
-  moviesEl,
-  typeEl,
-  countEl,
-} from "./search.js";
-import { btnEvents, searchDecades, typeEl, searchCategory } from "./btn.js";
+import { searchMovies, renderMovies, moviesEl, countEl } from "./search.js";
 const searchEl = document.querySelector(".main-search");
 const resEl = document.querySelector(".search-container");
 const loadEl = document.querySelector(".loader");
 const titleEl = document.querySelector(".input-search");
+const typeEl = document.querySelector(".movie-type");
+let searchCategory = "movie";
+let searchDecades = "";
 let page = 1;
-let titleInput = titleEl.value;
 
-// 버튼활성화
-btnEvents();
-
-// 라우터를 담은 즉시실행함수.
-(async () => {
-  window.addEventListener("hashchange", router);
-})();
+// 라우터 실행.
+window.addEventListener("hashchange", router);
 
 //라우터처리
 async function router() {
@@ -40,6 +30,16 @@ async function router() {
     console.log("메인화면입니다");
   } else if (routePath.includes("#/search")) {
     // 검색화면 진입
+    searchCategory = document.querySelector(".btn-switch:checked")
+      ? document.querySelector(".btn-switch:checked").value
+      : "movie";
+    searchDecades = document.querySelector(".btn-switch-decades:checked")
+      ? Number(document.querySelector(".btn-switch-decades:checked").value)
+      : "";
+    // console.log(searchDecades, searchCategory);
+    // alert(searchCategory);
+    typeEl.value = searchCategory;
+    console.log(searchDecades, searchCategory);
     loadEl.classList.remove("loader-hidden");
     searchEl.classList.remove("show");
     searchEl.classList.add("hidden");
@@ -48,7 +48,13 @@ async function router() {
     detailsEl.classList.add("hidden");
     detailsEl.classList.remove("details-show");
     console.log("검색창입니다");
-    let movies = await searchMovies((page = 1), searchCategory, titleEl.value);
+    let movies = await searchMovies(
+      (page = 1),
+      searchCategory,
+      titleEl.value,
+      typeEl,
+      searchDecades
+    );
     page++;
     console.log(movies);
     moviesEl.innerHTML = "";
@@ -82,7 +88,13 @@ async function router() {
 // 무한 스크롤 구현
 async function loadMoreMovies() {
   loadEl.classList.remove("loader-hidden");
-  let movies = await searchMovies(page++, searchCategory, titleEl.value);
+  let movies = await searchMovies(
+    page++,
+    searchCategory,
+    titleEl.value,
+    typeEl,
+    searchDecades
+  );
   console.log(movies);
   console.log("무한스크롤작동");
   // alert("무한스크롤작동");
