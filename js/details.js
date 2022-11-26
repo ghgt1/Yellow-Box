@@ -1,6 +1,7 @@
 const critics = ["imdb", "rotten", "metaCritic"];
 export let detailsEl = document.querySelector(".movie-details");
 
+// 상세정보 fetch.
 export async function detailSearch(id) {
   const res = await fetch(
     `https://omdbapi.com/?apikey=7035c60c&i=${id}&plot=full`
@@ -10,6 +11,7 @@ export async function detailSearch(id) {
   return json;
 }
 
+// 상세페이지 렌더링
 export function renderDetails(details) {
   const imgEl = document.createElement("img");
   // 업스케일링.

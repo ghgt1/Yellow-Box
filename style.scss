@@ -4,6 +4,7 @@ body {
   font-family: "Oswald", sans-serif;
 }
 
+// 상단 header
 header {
   height: 72px;
   position: sticky;
@@ -53,6 +54,7 @@ header {
   }
 }
 
+// 메인페이지
 .main-search {
   margin: 30px 96px 20px 96px;
   padding: 82px 16px 55px 16px;
@@ -79,6 +81,7 @@ header {
       }
     }
   }
+  // 검색창
   .input-container {
     margin: 30px 0;
     .input-search {
@@ -99,6 +102,7 @@ header {
         outline: 0;
       }
     }
+    // 버튼들
     .btn-container-type,
     .btn-container-years {
       margin-top: 30px;
@@ -136,6 +140,7 @@ header {
     }
   }
 }
+// 검색결과창
 .search-container {
   display: none;
   .movie-type {
@@ -206,6 +211,7 @@ header {
   }
 }
 
+// 영화 상세정보창
 .movie-details {
   background-color: #e9ecef;
   border-radius: 16px;
@@ -268,6 +274,7 @@ header {
   }
 }
 
+// 하단배너
 footer {
   span {
     &:first-child {
@@ -283,6 +290,7 @@ footer {
   text-align: center;
 }
 
+// SPA에서 visual조정
 .hidden {
   display: none !important;
 }
@@ -293,6 +301,7 @@ footer {
   display: flex !important;
 }
 
+// 로딩 애니메이션
 .loader {
   position: fixed;
   top: 0;
@@ -318,6 +327,13 @@ footer {
     }
   }
 }
+
+.loader-hidden {
+  opacity: 0;
+  visibility: hidden;
+  display: none;
+}
+
 @keyframes progress-circular-rotate {
   to {
     transform: rotate(1turn);
@@ -337,12 +353,8 @@ footer {
     stroke-dashoffset: -124px;
   }
 }
-.loader-hidden {
-  opacity: 0;
-  visibility: hidden;
-  display: none;
-}
 
+// 반응형
 // phones
 @media (max-width: 575.98px) {
   .header-container {
@@ -445,6 +457,8 @@ footer {
     }
   }
 }
+
+// 태블릿
 @media (min-width: 768px) and (max-width: 991.98px) {
   .main-search {
     .input-container {

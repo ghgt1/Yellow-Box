@@ -12,11 +12,14 @@
     />
     <!-- favicon -->
     <link rel="shortcut icon" href="/images/favicon2.png" />
+    <!-- style -->
     <link rel="stylesheet" href="./style.scss" />
+    <!-- main.js -->
     <script type="module" defer src="./js/main.js"></script>
   </head>
   <body>
     <header>
+      <!-- 상단 header -->
       <div class="header-container">
         <div class="left-container">
           <a href="/">
@@ -38,6 +41,7 @@
         </div>
       </div>
     </header>
+    <!-- 메인페이지 -->
     <section class="main-search">
       <div class="site-phrase">
         <img src="/images/favicon2.png" alt="노랑박스로고" width="100px" />
@@ -46,6 +50,7 @@
       </div>
       <h2>Explore any movies, TV shows, series or episodes.</h2>
       <h4>Powered by OMDb api.</h4>
+      <!-- 검색창 -->
       <div class="input-container">
         <input
           type="text"
@@ -61,6 +66,7 @@
         >
           SEARCH
         </button>
+        <!-- 버튼들 -->
         <div class="btn-container-type">
           <input type="button" value="movie" name="type" class="btn-switch" />
           <input type="button" value="series" name="type" class="btn-switch" />
@@ -75,14 +81,17 @@
         </div>
       </div>
     </section>
+    <!-- 검색 결과창 -->
     <section class="search-container">
-      <div class="movie-type" id="top"></div>
+      <div class="movie-type"></div>
       <div class="movie-count"></div>
       <div class="movie-container">
         <div class="movies"></div>
       </div>
     </section>
+    <!-- 영화 상세정보창. 기본값 hidden. -->
     <section class="movie-details hidden"></section>
+    <!-- 하단 배너 -->
     <footer class="bottom">
       <span>YELLOW&nbsp</span>
       <span>BOX&nbsp</span>
@@ -90,6 +99,7 @@
         <h3>© 2022 JYROH, All rights reserved.</h3>
       </div>
     </footer>
+    <!-- 로딩 애니메이션 -->
     <div class="loader loader-hidden">
       <svg
         viewBox="22.857142857142858 22.857142857142858 45.714285714285715 45.714285714285715"
