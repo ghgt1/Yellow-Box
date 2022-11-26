@@ -6,11 +6,11 @@ const loadEl = document.querySelector(".loader");
 const titleEl = document.querySelector(".input-search");
 const typeEl = document.querySelector(".movie-type");
 const submitBtn = document.querySelector(".btn-search");
-let searchCategory = "movie";
+let searchCategory = "";
 let searchDecades = "";
 let page = 1;
 let movieTitle = "";
-
+require("dotenv").config();
 // search 버튼 감지(urlsearchparms가 아닌 해쉬값이지만, 쿼리문 비슷하게 구성해보았습니다.)
 submitBtn.addEventListener("click", setQuery);
 titleEl.addEventListener("keypress", (event) => {
@@ -46,7 +46,7 @@ async function router() {
     // 검색화면 진입
     searchCategory = document.querySelector(".btn-switch:checked")
       ? document.querySelector(".btn-switch:checked").value
-      : "movie";
+      : "";
     searchDecades = document.querySelector(".btn-switch-decades:checked")
       ? Number(document.querySelector(".btn-switch-decades:checked").value)
       : "";

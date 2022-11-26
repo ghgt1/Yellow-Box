@@ -1,7 +1,8 @@
 export let moviesEl = document.querySelector(".movies");
 export let countEl = document.querySelector(".movie-count");
-
 // searchMovies의 긴 로직대신 화면 상단 렌더링을 함수로 따로 뺌
+// console.log(process.env.MOVIE_API_KEY);
+
 function renderTypeAndResults(
   page,
   json,
@@ -20,7 +21,7 @@ function renderTypeAndResults(
     const countDiv = document.createElement("h2");
     const typeDiv = document.createElement("h1");
     countDiv.textContent = `Total ${results} results for "${title}"`;
-    type == "series"
+    type === "series" || type === "All"
       ? (typeDiv.textContent = `${type.toUpperCase()}`)
       : (typeDiv.textContent = `${type.toUpperCase()}S`);
     if (!typeEl.innerHTML) typeEl.append(typeDiv);
@@ -32,24 +33,39 @@ function renderTypeAndResults(
 //영화 검색
 export async function searchMovies(
   page = 1,
-  type = "movie",
+  type = "",
   title = "",
   typeEl,
   searchDecades
 ) {
-  const res = await fetch(
-    `https://omdbapi.com/?apikey=7035c60c&s=${title}&page=${page}&type=${type}&y=${searchDecades}`
-  );
+  let res = "";
+  if (!type) {
+    res = await fetch(
+      `https://omdbapi.com/?apikey=${process.env.MOVIE_API_KEY}&s=${title}&page=${page}&y=${searchDecades}`
+    );
+    type = "All";
+  } else {
+    res = await fetch(
+      `https://omdbapi.com/?apikey=${process.env.MOVIE_API_KEY}&s=${title}&page=${page}&type=${type}&y=${searchDecades}`
+    );
+  }
   const json = await res.json();
   console.log(json);
   let { Search: movies } = json;
   // 여기 코드 수정하자. await을 for문안에 넣으면 망하는지름길인듯.
   if (searchDecades != "") {
     let promises = [];
+    let res2 = "";
     for (let i = searchDecades + 1; i <= searchDecades + 10; i++) {
-      const res2 = fetch(
-        `https://omdbapi.com/?apikey=7035c60c&s=${title}&page=${page}&type=${type}&y=${i}`
-      );
+      if (!type) {
+        res2 = fetch(
+          `https://omdbapi.com/?apikey=${process.env.MOVIE_API_KEY}&s=${title}&page=${page}&y=${i}`
+        );
+      } else {
+        res2 = fetch(
+          `https://omdbapi.com/?apikey=${process.env.MOVIE_API_KEY}&s=${title}&page=${page}&type=${type}&y=${i}`
+        );
+      }
       promises.push(res2);
     }
     // promise all로 한번에 받아온다. for문에서 하나하나 await하면 비동기 의미가없음.
