@@ -107,8 +107,16 @@ header {
     .btn-container-years {
       margin-top: 30px;
       // width: 500px;
-      .btn-switch {
-        padding: 0 16px;
+      .btn-switch,
+      .btn-switch-decades {
+        display: none;
+        &:checked + label {
+          color: #fdc000;
+          box-shadow: inset 0 0 0 2px #fdc000;
+        }
+      }
+      label {
+        padding: 4px 16px;
         width: auto;
         height: 36px;
         margin-left: 16px;
@@ -123,10 +131,6 @@ header {
         background-color: #fff;
         opacity: 1;
         cursor: pointer;
-      }
-      .active {
-        color: #fdc000;
-        box-shadow: inset 0 0 0 2px #fdc000;
       }
     }
     .btn-search {
@@ -357,16 +361,18 @@ footer {
 // 반응형
 // phones
 @media (max-width: 575.98px) {
-  .header-container {
-    margin: 0 auto !important;
-    text-align: center;
-    .left-container {
-      h1 {
+  header {
+    .header-container {
+      margin: 0 auto;
+      text-align: center;
+      .left-container {
+        h1 {
+          display: none;
+        }
+      }
+      .right-container {
         display: none;
       }
-    }
-    .right-container {
-      display: none !important;
     }
   }
   .main-search {
@@ -380,15 +386,14 @@ footer {
         margin-top: 10px;
       }
       .btn-container-type {
-        .btn-switch {
+        label {
           font-size: 14px;
         }
       }
       .btn-container-years {
-        .btn-switch {
-          width: 40px;
+        label {
           font-size: 10px;
-          padding: 0;
+          padding: 6px 12px;
         }
       }
     }
@@ -433,10 +438,9 @@ footer {
         margin-top: 10px;
       }
       .btn-container-years {
-        .btn-switch {
-          width: 45px;
+        label {
           font-size: 12px;
-          padding: 0 8px;
+          padding: 6px 12px;
         }
       }
     }
