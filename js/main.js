@@ -5,9 +5,23 @@ const resEl = document.querySelector(".search-container");
 const loadEl = document.querySelector(".loader");
 const titleEl = document.querySelector(".input-search");
 const typeEl = document.querySelector(".movie-type");
+const submitBtn = document.querySelector(".btn-search");
 let searchCategory = "movie";
 let searchDecades = "";
 let page = 1;
+let movieTitle = "";
+
+// search 버튼 감지(urlsearchparms가 아닌 해쉬값이지만, 쿼리문 비슷하게 구성해보았습니다.)
+submitBtn.addEventListener("click", setQuery);
+titleEl.addEventListener("keypress", (event) => {
+  if (event.key === "Enter") setQuery();
+});
+
+function setQuery() {
+  window.location.href = `#/search/${titleEl.value}`;
+  // 영화정보를 단순 스트링정보로 안빼오고, 이렇게 저장해놔도 좋을까요?
+  movieTitle = titleEl.value;
+}
 
 // 라우터 실행.
 window.addEventListener("hashchange", router);
@@ -51,7 +65,7 @@ async function router() {
     let movies = await searchMovies(
       (page = 1),
       searchCategory,
-      titleEl.value,
+      movieTitle,
       typeEl,
       searchDecades
     );
@@ -91,7 +105,7 @@ async function loadMoreMovies() {
   let movies = await searchMovies(
     page++,
     searchCategory,
-    titleEl.value,
+    movieTitle,
     typeEl,
     searchDecades
   );
@@ -99,7 +113,7 @@ async function loadMoreMovies() {
   console.log("무한스크롤작동");
   // alert("무한스크롤작동");
   console.log(movies);
-  console.log(page, titleEl.value);
+  console.log(page, movieTitle);
   if (!movies) {
     loadEl.classList.add("loader-hidden");
     location.hash = "/";

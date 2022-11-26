@@ -1,6 +1,34 @@
 export let moviesEl = document.querySelector(".movies");
 export let countEl = document.querySelector(".movie-count");
-// export let movies = "";
+
+// searchMovies의 긴 로직대신 화면 상단 렌더링을 함수로 따로 뺌
+function renderTypeAndResults(
+  page,
+  json,
+  searchDecades,
+  title,
+  type,
+  typeEl,
+  movies
+) {
+  if (page === 1) {
+    // 개수가 0개면 undefined가 아닌 0개가나오게함.
+    let results = json["totalResults"] || 0;
+    if (searchDecades) results = movies.length;
+    console.log(searchDecades);
+    // 영화 종류정보와 개수정보 출력
+    const countDiv = document.createElement("h2");
+    const typeDiv = document.createElement("h1");
+    countDiv.textContent = `Total ${results} results for "${title}"`;
+    type == "series"
+      ? (typeDiv.textContent = `${type.toUpperCase()}`)
+      : (typeDiv.textContent = `${type.toUpperCase()}S`);
+    if (!typeEl.innerHTML) typeEl.append(typeDiv);
+    console.log(countEl.innerHTML);
+    if (!countEl.innerHTML) countEl.append(countDiv);
+  }
+}
+
 //영화 검색
 export async function searchMovies(
   page = 1,
@@ -40,24 +68,16 @@ export async function searchMovies(
     }
     console.log(movies);
   }
-  if (page === 1) {
-    // 개수가 0개면 undefined가 아닌 0개가나오게함.
-    let results = json["totalResults"] || 0;
-    if (searchDecades) results = movies.length;
-    console.log(searchDecades);
-    // 영화 종류정보와 개수정보 출력
-    const countDiv = document.createElement("h2");
-    const typeDiv = document.createElement("h1");
-    countDiv.textContent = `Total ${results} results for "${title}"`;
-    type == "series"
-      ? (typeDiv.textContent = `${type.toUpperCase()}`)
-      : (typeDiv.textContent = `${type.toUpperCase()}S`);
-    if (!typeEl.innerHTML) typeEl.append(typeDiv);
-    console.log(countEl.innerHTML);
-    if (!countEl.innerHTML) countEl.append(countDiv);
-  }
+  renderTypeAndResults(page, json, searchDecades, title, type, typeEl, movies);
   return movies;
 }
+
+// 이유는 알수없지만 이렇게 하는 순간 모든 이미지가 대체이미지로 출력이됩니다
+// 모든 이미지에서 onerror가 발생한다는건데... 이유를 모르겠습니다 ㅜ
+// const imageAltHandler = (element) => {
+//   element.src = "/images/image-not-found.png";
+//   element.alt = "이미지존재하지않음";
+// };
 
 // 영화 목록 렌더링
 export function renderMovies(movies) {
@@ -80,6 +100,7 @@ export function renderMovies(movies) {
     // imgEl.src = movie.Poster.replace("SX300", "SX1200");
     imgEl.alt = movie.Title;
     // 대체 이미지 구현.
+    // imgEl.onerror = imageAltHandler(imgEl);
     imgEl.onerror = function () {
       this.src = "/images/image-not-found.png";
       this.alt = "이미지존재하지않음";
