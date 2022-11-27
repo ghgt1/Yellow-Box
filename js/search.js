@@ -16,7 +16,7 @@ function renderTypeAndResults(
     // 개수가 0개면 undefined가 아닌 0개가나오게함.
     let results = json["totalResults"] || 0;
     if (searchDecades) results = movies.length;
-    console.log(searchDecades);
+    // console.log(searchDecades);
     // 영화 종류정보와 개수정보 출력
     const countDiv = document.createElement("h2");
     const typeDiv = document.createElement("h1");
@@ -25,7 +25,7 @@ function renderTypeAndResults(
       ? (typeDiv.textContent = `${type.toUpperCase()}`)
       : (typeDiv.textContent = `${type.toUpperCase()}S`);
     if (!typeEl.innerHTML) typeEl.append(typeDiv);
-    console.log(countEl.innerHTML);
+    // console.log(countEl.innerHTML);
     if (!countEl.innerHTML) countEl.append(countDiv);
   }
 }
@@ -50,7 +50,7 @@ export async function searchMovies(
     );
   }
   const json = await res.json();
-  console.log(json);
+  // console.log(json);
   let { Search: movies } = json;
   // 여기 코드 수정하자. await을 for문안에 넣으면 망하는지름길인듯.
   if (searchDecades != "") {
@@ -75,14 +75,14 @@ export async function searchMovies(
       promises.push(x.json());
     });
     promiseMovies = await Promise.all(promises);
-    console.log(promiseMovies);
+    // console.log(promiseMovies);
     for (let i = 0; i < 10; i++) {
       let { Search: movies2 } = promiseMovies[i];
       if (!movies) movies = [];
       if (!movies2) movies2 = [];
       movies = movies.concat(movies2);
     }
-    console.log(movies);
+    // console.log(movies);
   }
   renderTypeAndResults(page, json, searchDecades, title, type, typeEl, movies);
   return movies;
@@ -97,7 +97,7 @@ export async function searchMovies(
 
 // 영화 목록 렌더링
 export function renderMovies(movies) {
-  console.log(movies);
+  // console.log(movies);
   for (const movie of movies) {
     const el = document.createElement("a");
     el.classList.add("movie");
@@ -126,5 +126,5 @@ export function renderMovies(movies) {
     el.append(imgEl, infoEl);
     moviesEl.append(el);
   }
-  console.log("렌더링끝");
+  // console.log("렌더링끝");
 }

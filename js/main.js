@@ -29,7 +29,7 @@ window.addEventListener("hashchange", router);
 //라우터처리
 async function router() {
   const routePath = location.hash;
-  console.log("라우터새로고침");
+  // console.log("라우터새로고침");
   // 타입, 타이틀 불러오기
   // 초기화면 진입
   if (routePath === "") {
@@ -41,7 +41,7 @@ async function router() {
     resEl.classList.add("hidden");
     detailsEl.classList.add("hidden");
     detailsEl.classList.remove("details-show");
-    console.log("메인화면입니다");
+    // console.log("메인화면입니다");
   } else if (routePath.includes("#/search")) {
     // 검색화면 진입
     searchCategory = document.querySelector(".btn-switch:checked")
@@ -53,7 +53,7 @@ async function router() {
     // console.log(searchDecades, searchCategory);
     // alert(searchCategory);
     typeEl.value = searchCategory;
-    console.log(searchDecades, searchCategory);
+    // console.log(searchDecades, searchCategory);
     loadEl.classList.remove("loader-hidden");
     searchEl.classList.remove("show");
     searchEl.classList.add("hidden");
@@ -61,7 +61,7 @@ async function router() {
     resEl.classList.add("show");
     detailsEl.classList.add("hidden");
     detailsEl.classList.remove("details-show");
-    console.log("검색창입니다");
+    // console.log("검색창입니다");
     let movies = await searchMovies(
       (page = 1),
       searchCategory,
@@ -70,7 +70,7 @@ async function router() {
       searchDecades
     );
     page++;
-    console.log(movies);
+    // console.log(movies);
     moviesEl.innerHTML = "";
     detailsEl.innerHTML = "";
     // 검색어가없으면.
@@ -95,7 +95,7 @@ async function router() {
     detailsEl.innerHTML = "";
     renderDetails(details);
     loadEl.classList.add("loader-hidden");
-    console.log("상세정보창입니다.");
+    // console.log("상세정보창입니다.");
   }
 }
 
@@ -109,11 +109,11 @@ async function loadMoreMovies() {
     typeEl,
     searchDecades
   );
-  console.log(movies);
-  console.log("무한스크롤작동");
+  // console.log(movies);
+  // console.log("무한스크롤작동");
   // alert("무한스크롤작동");
-  console.log(movies);
-  console.log(page, movieTitle);
+  // console.log(movies);
+  // console.log(page, movieTitle);
   if (!movies) {
     loadEl.classList.add("loader-hidden");
     location.hash = "/";

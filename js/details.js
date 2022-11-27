@@ -7,7 +7,7 @@ export async function detailSearch(id) {
     `https://omdbapi.com/?apikey=7035c60c&i=${id}&plot=full`
   );
   const json = await res.json();
-  console.log(json);
+  // console.log(json);
   return json;
 }
 
@@ -15,7 +15,7 @@ export async function detailSearch(id) {
 export function renderDetails(details) {
   const imgEl = document.createElement("img");
   // 업스케일링.
-  console.log(details.Poster);
+  // console.log(details.Poster);
   imgEl.src = details.Poster.replace("SX300", "SX1200");
   imgEl.alt = details.Title;
   imgEl.onerror = function () {
