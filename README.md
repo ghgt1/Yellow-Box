@@ -22,6 +22,7 @@ $ npm run dev
 ## 기간
 
 - 2022/10/31 ~ 2022/11/15
+- 리팩토링 : 2022/11/26 ~ 2022/11/27
 
 ## 사용 기술 스택
 
@@ -32,6 +33,10 @@ $ npm run dev
 - Deploy
 
 <img src="https://img.shields.io/badge/NETLIFY-00C7B7?style=for-the-badge&logo=NETLIFY&logoColor=white">
+
+- Etc
+
+<img src="https://img.shields.io/badge/.ENV-ECD53F?style=for-the-badge&logo=.ENV&logoColor=white"> <img src="https://img.shields.io/badge/PARCEL-8DD6F9?style=for-the-badge&logoColor=white"> 
 
 ## 주요 구현 사항
 
@@ -81,3 +86,17 @@ $ npm run dev
 - 스켈레톤 UI는 로딩중에 img들이 있을곳에다가 출력을해준후, 로딩에 끝나면 img들이 덮어씌우는 방식인지?
 - 실무에서는 SPA구성을 어떻게하는지
 - 어떠한 조언과 피드백도 좋습니다!
+
+## 리팩토링 진행
+
+- CSS에서 `!important`로 우겨넣은 우선순위를 nesting으로 변경하여 해결하였습니다.
+- 연도와, type 종류를 button으로 클릭 이벤트를 감지하여 구현을했었는데 이것을 `input radio`로 변경함으로서 JS코드를 획기적으로 줄였습니다.(btn.js 삭제)
+- detail 페이지와 비슷하게, url에다가 영화 input정보를 삽입해주어 페이지 로직의 통일성을 주었습니다(쿼리문의 형태는 아닙니다).
+- `searchMovies()`함수가 굉장히 길어서 유지보수와 가독성에서 단점이 있었는데, 화면(상부) 렌더부분을 따로 함수로 분리하였습니다.
+- input에서 type을 선택하지 않았을때 기본값이 movie가 아닌, 모든 종류(ALL)를 검색할수있게 수정하였습니다.
+- api key가 git에 공개되는것을 막기위해 `.env` 를 활용하여 환경변수로 숨겨주었습니다.
+- 그외에 자잘하게 코드를 수정하였습니다.
+
+#### 리팩토링 중 문제점
+
+- `imgEl.onerror`가 재활용되는 코드여서 말씀해주신대로 따로 함수로 만들어봤는데 잘 동작하지 않는 문제가 있었습니다. 자세한것은 `search.js`에 주석으로 표시해두었습니다.
