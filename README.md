@@ -2,6 +2,8 @@
 
 패스트캠퍼스에서 진행한 OMDB API를 활용 영화 검색 사이트 제작 프로젝트입니다.
 
+##### (참고) [리액트 버전](https://github.com/ghgt1/yellow-box-react)으로 다시 만들어 보았습니다.
+
 ## 배포주소
 
 데모를 [여기서](https://yellow-box-jyroh.netlify.app/) 보실수 있습니다 
